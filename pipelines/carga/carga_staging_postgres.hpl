@@ -1,0 +1,301 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<pipeline>
+  <info>
+    <capture_transform_performance>N</capture_transform_performance>
+    <transform_performance_capturing_delay>1000</transform_performance_capturing_delay>
+    <transform_performance_capturing_size_limit>100</transform_performance_capturing_size_limit>
+    <pipeline_type>Normal</pipeline_type>
+    <pipeline_status>0</pipeline_status>
+    <parameters/>
+    <name>carga_staging_postgres</name>
+    <name_sync_with_filename>N</name_sync_with_filename>
+    <description>Carga completa idempotente dos registros validos no PostgreSQL.</description>
+    <created_user>-</created_user>
+    <modified_user>-</modified_user>
+    <created_date>2026/09/13 11:43:13.677</created_date>
+    <modified_date>2026/09/13 11:43:13.677</modified_date>
+  </info>
+  <transform>
+    <type>CSVInput</type>
+    <name>CSV Input - validos</name>
+    <filename>${PROJECT_HOME}/data/out/alunos_validos.csv</filename>
+    <include_filename>N</include_filename>
+    <header>Y</header>
+    <separator>,</separator>
+    <enclosure>"</enclosure>
+    <buffer_size>50000</buffer_size>
+    <lazy_conversion>N</lazy_conversion>
+    <add_filename_result>N</add_filename_result>
+    <parallel>N</parallel>
+    <newline_possible>N</newline_possible>
+    <ignoreFields>N</ignoreFields>
+    <fields>
+      <field>
+        <name>id_aluno</name>
+        <length>15</length>
+        <type>Integer</type>
+        <format/>
+        <trim_type>none</trim_type>
+        <precision>-1</precision>
+        <currency/>
+        <decimal/>
+        <group/>
+      </field>
+      <field>
+        <name>nome_completo</name>
+        <length>-9</length>
+        <type>String</type>
+        <format/>
+        <trim_type>none</trim_type>
+        <precision>-1</precision>
+        <currency/>
+        <decimal/>
+        <group/>
+      </field>
+      <field>
+        <name>cpf</name>
+        <length>-9</length>
+        <type>String</type>
+        <format/>
+        <trim_type>none</trim_type>
+        <precision>-1</precision>
+        <currency/>
+        <decimal/>
+        <group/>
+      </field>
+      <field>
+        <name>data_nascimento</name>
+        <length>-9</length>
+        <type>String</type>
+        <format/>
+        <trim_type>none</trim_type>
+        <precision>-1</precision>
+        <currency/>
+        <decimal/>
+        <group/>
+      </field>
+      <field>
+        <name>email</name>
+        <length>-9</length>
+        <type>String</type>
+        <format/>
+        <trim_type>none</trim_type>
+        <precision>-1</precision>
+        <currency/>
+        <decimal/>
+        <group/>
+      </field>
+      <field>
+        <name>status_aluno</name>
+        <length>-9</length>
+        <type>String</type>
+        <format/>
+        <trim_type>none</trim_type>
+        <precision>-1</precision>
+        <currency/>
+        <decimal/>
+        <group/>
+      </field>
+    </fields>
+    <distribute>Y</distribute>
+    <copies>1</copies>
+    <GUI>
+      <xloc>128</xloc>
+      <yloc>32</yloc>
+    </GUI>
+    <partitioning>
+      <method>none</method>
+      <schema_name/>
+    </partitioning>
+    <attributes/>
+  </transform>
+  <transform>
+    <type>SortRows</type>
+    <name>Ordenar por id_aluno</name>
+    <directory>${java.io.tmpdir}</directory>
+    <prefix>aurora</prefix>
+    <sort_size>5000</sort_size>
+    <unique_rows>N</unique_rows>
+    <fields><field><name>id_aluno</name><ascending>Y</ascending><case_sensitive>N</case_sensitive><presorted>N</presorted></field></fields>
+    <distribute>Y</distribute>
+    <copies>1</copies>
+    <GUI><xloc>192</xloc><yloc>32</yloc></GUI>
+    <partitioning><method>none</method><schema_name/></partitioning>
+    <attributes/>
+  </transform>
+  <transform>
+    <type>Unique</type>
+    <name>Remover duplicados</name>
+    <count_rows>N</count_rows>
+    <count_field/>
+    <reject_duplicate_row>N</reject_duplicate_row>
+    <fields><field><name>id_aluno</name><case_insensitive>N</case_insensitive></field></fields>
+    <distribute>Y</distribute>
+    <copies>1</copies>
+    <GUI><xloc>256</xloc><yloc>32</yloc></GUI>
+    <partitioning><method>none</method><schema_name/></partitioning>
+    <attributes/>
+  </transform>
+  <transform>
+    <type>Constant</type>
+    <name>Adicionar campos obrigatorios</name>
+    <description>Valores laboratoriais para campos ausentes na fonte CSV.</description>
+    <fields>
+      <field><name>sexo</name><type>String</type><length>1</length><precision>-1</precision><nullif>N</nullif><set_empty_string>N</set_empty_string></field>
+      <field><name>data_cadastro</name><type>Date</type><format>yyyy-MM-dd</format><length>-1</length><precision>-1</precision><nullif>2026-09-13</nullif><set_empty_string>N</set_empty_string></field>
+    </fields>
+    <distribute>Y</distribute>
+    <copies>1</copies>
+    <GUI><xloc>256</xloc><yloc>32</yloc></GUI>
+    <partitioning><method>none</method><schema_name/></partitioning>
+    <attributes/>
+  </transform>
+  <transform>
+    <type>TableOutput</type>
+    <name>Table Output - stg_alunos</name>
+    <connection>CONN_POSTGRES_AURORA</connection>
+    <schema>staging</schema>
+    <table>stg_alunos</table>
+    <commit>1000</commit>
+    <truncate>Y</truncate>
+    <only_when_have_rows>N</only_when_have_rows>
+    <ignore_errors>N</ignore_errors>
+    <use_batch>Y</use_batch>
+    <partitioning_enabled>N</partitioning_enabled>
+    <partitioning_daily>N</partitioning_daily>
+    <partitioning_monthly>N</partitioning_monthly>
+    <tablename_in_field>N</tablename_in_field>
+    <tablename_in_table>N</tablename_in_table>
+    <return_keys>N</return_keys>
+    <specify_fields>N</specify_fields>
+    <auto_update_table_structure>N</auto_update_table_structure>
+    <always_drop_and_recreate>N</always_drop_and_recreate>
+    <add_columns>N</add_columns>
+    <drop_columns>N</drop_columns>
+    <change_column_types>N</change_column_types>
+    <fields/>
+    <distribute>N</distribute>
+    <copies>1</copies>
+    <GUI>
+      <xloc>384</xloc>
+      <yloc>32</yloc>
+    </GUI>
+    <partitioning>
+      <method>none</method>
+      <schema_name/>
+    </partitioning>
+    <attributes/>
+  </transform>
+  <transform>
+    <type>SelectValues</type>
+    <name>Selecionar colunas de destino</name>
+    <fields>
+      <select_unspecified>N</select_unspecified>
+      <field><name>id_aluno</name></field>
+      <field><name>nome_completo</name></field>
+      <field><name>cpf</name></field>
+      <field><name>data_nascimento</name></field>
+      <field><name>email</name></field>
+      <field><name>status_aluno</name></field>
+      <field><name>sexo</name></field>
+      <field><name>data_cadastro</name></field>
+    </fields>
+    <distribute>Y</distribute>
+    <copies>1</copies>
+    <GUI><xloc>640</xloc><yloc>32</yloc></GUI>
+    <partitioning><method>none</method><schema_name/></partitioning>
+    <attributes/>
+  </transform>
+  <transform>
+    <type>ScriptValueMod</type>
+    <name>Normalizar data de nascimento</name>
+    <description>Converte dd/MM/yyyy, dd-MM-yyyy e yyyy-MM-dd para Date.</description>
+    <distribute>Y</distribute>
+    <copies>1</copies>
+    <optimizationLevel>9</optimizationLevel>
+    <jsScripts>
+      <jsScript>
+        <jsScript_type>0</jsScript_type>
+        <jsScript_name>Normalizar data</jsScript_name>
+        <jsScript_script>var texto = data_nascimento == null ? null : data_nascimento.trim();
+var data_convertida = null;
+var registro_valido = 'N';
+if (texto != null &amp;&amp; texto.length &gt; 0) {
+  var partes;
+  if (/^\d{4}-\d{2}-\d{2}$/.test(texto)) {
+    partes = texto.split('-');
+  } else {
+    partes = texto.replace(/-/g, '/').split('/');
+    partes = [partes[2], partes[1], partes[0]];
+  }
+  var ano = parseInt(partes[0], 10);
+  var mes = parseInt(partes[1], 10);
+  var dia = parseInt(partes[2], 10);
+  if (ano &gt;= 1900 &amp;&amp; mes &gt;= 1 &amp;&amp; mes &lt;= 12 &amp;&amp; dia &gt;= 1 &amp;&amp; dia &lt;= 31) {
+    data_convertida = new Date(Date.UTC(ano, mes - 1, dia));
+  }
+}
+registro_valido = nome_completo != null &amp;&amp; nome_completo.trim().length &gt; 0 &amp;&amp; cpf != null &amp;&amp; cpf.trim().length &gt; 0 &amp;&amp; data_convertida != null ? 'Y' : 'N';
+if (registro_valido == 'N') { data_convertida = null; }</jsScript_script>
+      </jsScript>
+    </jsScripts>
+    <fields>
+      <field><name>data_convertida</name><rename>data_nascimento</rename><type>Date</type><length>-1</length><precision>-1</precision><replace>Y</replace></field>
+      <field><name>registro_valido</name><rename>registro_valido</rename><type>String</type><length>1</length><precision>-1</precision><replace>N</replace></field>
+    </fields>
+    <GUI><xloc>384</xloc><yloc>32</yloc></GUI>
+    <partitioning><method>none</method><schema_name/></partitioning>
+    <attributes/>
+  </transform>
+  <transform>
+    <type>FilterRows</type>
+    <name>Filtrar registros validos</name>
+    <send_true_to>Selecionar colunas de destino</send_true_to>
+    <compare><condition><negated>N</negated><leftvalue>data_nascimento</leftvalue><function>IS NOT NULL</function><rightvalue/><value><name>constant</name><type>String</type><text/><length>-1</length><precision>0</precision><isnull>Y</isnull></value></condition></compare>
+    <distribute>Y</distribute>
+    <copies>1</copies>
+    <GUI><xloc>512</xloc><yloc>32</yloc></GUI>
+    <partitioning><method>none</method><schema_name/></partitioning>
+    <attributes/>
+  </transform>
+  <order>
+    <hop>
+      <from>CSV Input - validos</from>
+      <to>Ordenar por id_aluno</to>
+      <enabled>Y</enabled>
+    </hop>
+    <hop>
+      <from>Ordenar por id_aluno</from>
+      <to>Remover duplicados</to>
+      <enabled>Y</enabled>
+    </hop>
+    <hop>
+      <from>Remover duplicados</from>
+      <to>Adicionar campos obrigatorios</to>
+      <enabled>Y</enabled>
+    </hop>
+    <hop>
+      <from>Adicionar campos obrigatorios</from>
+      <to>Normalizar data de nascimento</to>
+      <enabled>Y</enabled>
+    </hop>
+    <hop>
+      <from>Normalizar data de nascimento</from>
+      <to>Filtrar registros validos</to>
+      <enabled>Y</enabled>
+    </hop>
+    <hop>
+      <from>Filtrar registros validos</from>
+      <to>Selecionar colunas de destino</to>
+      <enabled>Y</enabled>
+    </hop>
+    <hop>
+      <from>Selecionar colunas de destino</from>
+      <to>Table Output - stg_alunos</to>
+      <enabled>Y</enabled>
+    </hop>
+  </order>
+  <notepads/>
+  <attributes/>
+  <transform_error_handling/>
+</pipeline>

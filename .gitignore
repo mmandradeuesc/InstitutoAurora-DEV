@@ -5,6 +5,10 @@
 *.log
 *.tmp
 *.bak
+logs/*
+!logs/README.md
+data/out/*
+!data/out/README.md
 
 # Ignorar configurações locais com senhas (se você usar hop-config.json localmente)
 # hop-config.json 
