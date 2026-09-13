@@ -36,9 +36,11 @@ Evidencias do modulo: a conexao `CONN_POSTGRES_AURORA` usa `DB_HOST`, `DB_PORT`,
 
 ## Modulo 9 - Desempenho e falhas
 
-A primeira linha de base e a contagem dos CSVs. O gargalo esperado e a leitura/validacao de arquivos, nao o volume. Falha simulada: remover `cursos.csv`; o pre-requisito deve impedir carga parcial. Reprocessamento e seguro porque a carga completa limpa staging antes de gravar.
+A primeira linha de base e a contagem dos CSVs. O gargalo esperado concentra-se na carga e validacao final quando o volume de matriculas cresce. Falha simulada: remover `cursos.csv`; o pre-requisito deve impedir carga parcial. Reprocessamento e seguro porque a carga completa limpa staging antes de gravar.
 
-Melhoria proposta: adicionar indice nas chaves de join e persistir metricas por etapa. Impacto esperado: menor custo de lookup e diagnostico mais rapido, sem alterar regra de negocio.
+Melhoria proposta: ativar captura de desempenho por transform e persistir metricas por etapa. Impacto esperado: diagnostico mais rapido, identificacao objetiva do gargalo real e base melhor para futuras otimizacoes, inclusive indices adicionais se os dados confirmarem necessidade.
+
+Evidencias adicionais do modulo: o log de sucesso registrou `duracao_segundos=1.3`; o log de falha registrou `exit_code=1` e `carga_parcial=NA`; a auditoria SQL já registra volume e status, mas os pipelines ainda estao com `capture_transform_performance=N`, o que limita a identificacao do custo por transform. A consolidacao da analise esta em `Oficina_Prática_Módulo_9_Monitoramento_Desempenho_Tratamento_Falhas.md`.
 
 ## Modulo 10 - Consolidacao
 

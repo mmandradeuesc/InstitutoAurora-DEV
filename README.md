@@ -55,6 +55,8 @@ Os totais acima sao uma expectativa deterministica para os arquivos atuais e dev
 
 Em 2026-09-13, o workflow foi executado no Apache Hop 2.19.0 com o ambiente `InstitutoAurora-DEV`. O pre-requisito passou, as tres ingestões foram executadas, a carga foi idempotente e 10 alunos e 10 matriculas foram gravados no PostgreSQL. Uma falha controlada com `cursos.csv` ausente terminou com exit `1` e sem carga parcial. As validacoes SQL e a auditoria tambem foram executadas. Os detalhes estao em `docs/evidencias_execucao.md` e `logs/`.
 
+Para a entrega da oficina de monitoramento, desempenho e tratamento de falhas, consultar `Oficina_Prática_Módulo_9_Monitoramento_Desempenho_Tratamento_Falhas.md`, com métricas da execução, análise de gargalo, cenário de falha, reprocessamento e melhoria proposta.
+
 ## Seguranca e governanca
 
 Nao ha senha real versionada. A conexao usa variaveis e o arquivo local de credenciais deve permanecer fora do Git. Dados pessoais dos CSVs sao ficticios; logs devem registrar contagens e identificadores tecnicos, nunca CPF, e-mail ou nome completo.

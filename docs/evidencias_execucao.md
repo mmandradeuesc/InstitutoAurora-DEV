@@ -47,3 +47,11 @@ Em 2026-09-13, `sql/002_validacoes_academico.sql` foi executado com `psql` 18 co
 O script `sql/003_auditoria_execucao.sql` foi executado com sucesso e criou `aurora.auditoria_execucao` e seus índices. O script `sql/006_registro_auditoria_execucao.sql` inseriu os registros reais de SUCESSO e FALHA.
 
 Nao inserir CPF, e-mail, senha ou token neste documento.
+
+## Analise operacional do Modulo 9
+
+- duração total observada do workflow: `1,3 s`;
+- falha controlada observada: arquivo `data/in/cursos.csv` ausente com `exit_code=1`;
+- reprocessamento considerado seguro no ambiente didático por uso de `TRUNCATE` antes da recarga;
+- principal limitação atual: ausência de métricas por transform nos pipelines do Hop;
+- principal melhoria proposta: ativar captura de desempenho por transform e persistir métricas por etapa na auditoria.
