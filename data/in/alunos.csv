@@ -1,0 +1,15 @@
+id_aluno,nome,cpf,data_nasc,email,status
+101,Ana Beatriz Souza,123.456.789-01,12/03/1998,ana.souza@email.com,Ativa
+102,Bruno Lima,234.567.890-12,25/07/1995,bruno.lima@email.com,Ativa
+103,Carla Mendes,345.678.901-23,1999-04-10,carla.mendes@email.com,Trancada
+104,Diego Rocha,456.789.012-34,30/01/2000,diego.rocha@email.com,Ativa
+105,Elena Ferreira,567.890.123-45,05-11-1997,elena.ferreira@email.com,Concluída
+106,Felipe Costa,678.901.234-56,18/09/2001,felipe.costa@email.com,Ativa
+107,Gabriela Nunes,789.012.345-67,22/06/1996,gabriela.nunes@email.com,Evasão
+108,Henrique Alves,890.123.456-78,14/02/1999,henrique.alves@email.com,Ativa
+101,Ana Beatriz Souza,123.456.789-01,12/03/1998,ana.souza@email.com,Ativa
+109,,901.234.567-89,03/08/2000,,Ativa
+110,Igor Martins,111,40/13/1990,igor.martins@email.com,Ativa
+111,Juliana Prado,012.345.678-90,15/12/2027,juliana.prado@email.com,Ativa
+112,Kaique Ramos,,09/05/1994,kaique.ramos@email.com,Desconhecido
+113,Larissa Viana,12345678900,01-02-2002,larissa.viana@email.com,Ativa

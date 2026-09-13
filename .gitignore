@@ -1,0 +1,14 @@
+# Ignorar a pasta de metadados locais do Hop (cache de ambiente)
+.metadata/
+
+# Ignorar logs e arquivos temporários
+*.log
+*.tmp
+*.bak
+
+# Ignorar configurações locais com senhas (se você usar hop-config.json localmente)
+# hop-config.json 
+
+# Arquivos de sistema do Windows
+Thumbs.db
+.DS_Store

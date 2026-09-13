@@ -1,0 +1,14 @@
+{
+  "database_replacements": [],
+  "autoOpening": true,
+  "description": "",
+  "persist_filename": "",
+  "test_type": "DEVELOPMENT",
+  "variableValues": [],
+  "basePath": "${HOP_UNIT_TESTS_FOLDER}",
+  "golden_data_sets": [],
+  "input_data_sets": [],
+  "name": "ingestao_alunos.hpl",
+  "trans_test_tweaks": [],
+  "pipeline_filename": ""
+}

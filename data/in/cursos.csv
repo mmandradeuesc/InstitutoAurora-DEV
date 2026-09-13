@@ -1,0 +1,10 @@
+cod_curso,nome_curso,carga_horaria,turno
+ADS001,Análise e Desenvolvimento de Sistemas,2400,Noturno
+ADM002,Administração,2800,Vespertino
+ENG003,Engenharia Civil,3600,Integral
+PSI004,Psicologia,3200,Matutino
+DIR005,Direito,4000,Noturno
+ENF006,Enfermagem,3600,Integral
+ads001,Análise e Desenvolvimento de Sistemas (repetido),2400,Noturno
+ADM-002,Administração,2800,Vespertino
+ ENF006,Enfermagem,3600,Integral
