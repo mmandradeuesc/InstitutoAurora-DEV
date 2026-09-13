@@ -59,6 +59,8 @@ Em 2026-09-13, o workflow foi executado no Apache Hop 2.19.0 com o ambiente `Ins
 
 Nao ha senha real versionada. A conexao usa variaveis e o arquivo local de credenciais deve permanecer fora do Git. Dados pessoais dos CSVs sao ficticios; logs devem registrar contagens e identificadores tecnicos, nunca CPF, e-mail ou nome completo.
 
+Para a entrega da oficina de seguranca operacional e controle de acesso, consultar `Oficina_Prática_Módulo_8_Segurança_Operacional_Controle_Acesso.md`, que consolida evidencias de credenciais, variaveis sensiveis, dados pessoais, revisao de logs, papeis simulados e matriz de riscos com mitigacoes.
+
 Decisoes, riscos, criterios de sucesso/alerta/falha, reprocessamento e checklist estao em `docs/diario_tecnico.md`, `docs/checklist_modulos_3_10.md` e `docs/evidencias_execucao.md`.
 
 A validacao SQL pos-carga esta preparada em `sql/002_validacoes_academico.sql`; sua execucao por cliente SQL ainda deve ser registrada, pois o executavel `psql` nao esta instalado no ambiente local.

@@ -32,6 +32,8 @@ Ambientes simulados: `local` para desenvolvimento e `test` para validacao. A con
 
 Riscos: credencial em metadado, PII em log, permissao excessiva e CSV compartilhado. Mitigacoes: variaveis de ambiente/secret store, mascaramento e contagens nos logs, papeis separados e acesso minimo. Papeis simulados: desenvolvedor (edita), operador (executa), revisor (aprova) e validador (consulta resultados).
 
+Evidencias do modulo: a conexao `CONN_POSTGRES_AURORA` usa `DB_HOST`, `DB_PORT`, `DB_NAME`, `DB_USER` e `DB_PASSWORD` sem valor real no repositorio; `logs/README.md` restringe o registro de CPF, e-mail, nome completo, senha e token; `data/in/alunos.csv` permanece como principal ponto de atencao por conter PII ficticia em pasta compartilhada de laboratorio. A consolidacao da revisao, com variaveis sensiveis, minimizacao de dados, papeis simulados e matriz de riscos, esta no arquivo `Oficina_Prática_Módulo_8_Segurança_Operacional_Controle_Acesso.md`.
+
 ## Modulo 9 - Desempenho e falhas
 
 A primeira linha de base e a contagem dos CSVs. O gargalo esperado e a leitura/validacao de arquivos, nao o volume. Falha simulada: remover `cursos.csv`; o pre-requisito deve impedir carga parcial. Reprocessamento e seguro porque a carga completa limpa staging antes de gravar.
